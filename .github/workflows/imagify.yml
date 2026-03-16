@@ -3,7 +3,7 @@ name: Export Sketches to PNG
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   export:
