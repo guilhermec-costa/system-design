@@ -1,0 +1,40 @@
+name: Export Sketches to PNG
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Chrome for Puppeteer
+        run: pnpm exec puppeteer browsers install chrome
+
+      - name: Export sketches
+        run: pnpm tsx imagify.ts
+
+      - name: Commit images
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_messages: "chore: export sketches to PNG [skip ci]"
+          file_pattern: images/*.png
