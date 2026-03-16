@@ -34,5 +34,5 @@ jobs:
       - name: Commit images
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_messages: "chore: export sketches to PNG [skip ci]"
+          commit_message: "chore: export sketches to PNG [skip ci]"
           file_pattern: images/*.png
